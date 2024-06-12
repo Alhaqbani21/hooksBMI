@@ -11,18 +11,30 @@ function Hero() {
   const [height, setHeight] = useState(0);
   const [bmi, setBmi] = useState(null);
   const [currentimage, setCurrentimage] = useState('');
+  const [alertBMI, setalertBMI] = useState('');
+  const [colorAlert, setcolorAlert] = useState('');
 
   function imageChanger(newBmi) {
     if (newBmi < 18.5) {
       setCurrentimage(image1);
+      setalertBMI('نقص في الوزن');
+      setcolorAlert('yellow');
     } else if (newBmi < 24.9 && newBmi >= 18.5) {
       setCurrentimage(image2);
+      setalertBMI('وزن طبيعي');
+      setcolorAlert('green');
     } else if (newBmi < 29.9 && newBmi >= 24.9) {
       setCurrentimage(image3);
+      setalertBMI('زيادة في الوزن');
+      setcolorAlert('orange');
     } else if (newBmi < 34.9 && newBmi >= 29.9) {
       setCurrentimage(image4);
+      setalertBMI('بدانة');
+      setcolorAlert('pink');
     } else if (newBmi > 35) {
       setCurrentimage(image5);
+      setalertBMI('بدانة مفرطة');
+      setcolorAlert('red');
     }
   }
 
@@ -77,6 +89,14 @@ function Hero() {
               {bmi !== null && weight !== 0 && height !== 0 && (
                 <p className="text-center mt-4 text-2xl">
                   BMI: {bmi.toFixed(2)}
+                </p>
+              )}
+              {bmi !== null && weight !== 0 && height !== 0 && (
+                <p
+                  style={{ color: colorAlert }}
+                  className="text-center mt-4 text-2xl"
+                >
+                  {alertBMI}
                 </p>
               )}
             </div>
